@@ -1,19 +1,15 @@
 $('#placeholder').parent().css("height", "450px");
 $('#placeholder').html('<div style="width:100%;"><canvas id="canvas"></canvas></div>');
 
-var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var config = {
     type: 'line',
     data: {
-        labels: ['January', 'February'],
+        labels: [],
         datasets: [{
-            label: 'Rashedul_Alam',
+            label: '',
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
+            data: [],
             fill: false,
         }]
     },
@@ -21,7 +17,7 @@ var config = {
         responsive: true,
         tooltips: {
             mode: 'index',
-            intersect: false,
+            intersect: true
         },
         hover: {
             mode: 'nearest',
@@ -30,6 +26,25 @@ var config = {
         scales: {
             xAxes: [{
                 display: true,
+                type: 'time',
+                distribution: 'linear',
+                time: {
+                    unitStepSize: 5,
+                    displayFormats: {
+                        'millisecond': 'MMM DD',
+                        'second': 'MMM DD',
+                        'minute': 'MMM DD',
+                        'hour': 'MMM DD',
+                        'day': 'MMM DD',
+                        'week': 'MMM DD',
+                        'month': 'MMM YYYY',
+                        'quarter': 'MMM YYYY',
+                        'year': 'MMM YYYY',
+                    }
+                },
+                gridLines: {
+                    display: false
+                },
             }],
             yAxes: [{
                 display: true
@@ -40,7 +55,7 @@ var config = {
 
 window.onload = function() {
     var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = new Chart(ctx, config);
+    window.ContestRatingChart = new Chart(ctx, config);
 };
 
 var colorNames = Object.keys(window.chartColors);
