@@ -96,7 +96,7 @@ Project Link: [https://github.com/magenia/CustomCFChart](https://github.com/mage
 [issues-shield]: https://img.shields.io/github/issues/magenia/CustomCFChart.svg?style=flat-square
 [issues-url]: https://github.com/magenia/CustomCFChart/issues
 [license-shield]: https://img.shields.io/github/license/magenia/CustomCFChart.svg?style=flat-square
-[license-url]: https://github.com/magenia/CustomCFChart/blob/master/LICENSE.txt
+[license-url]: https://github.com/magenia/CustomCFChart/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/ludehsar
 [product-screenshot]: images/screenshot.png
