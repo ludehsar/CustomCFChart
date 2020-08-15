@@ -39,7 +39,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Custom CF Chart is a chrome extension that improves Codeforces rating charts. It also provides a way to compare ratings.
+Custom CF Chart is a chrome extension that improves Codeforces rating chart design. It also provides a way to compare ratings.
 
 
 <!-- GETTING STARTED -->
