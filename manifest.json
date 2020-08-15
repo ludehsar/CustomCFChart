@@ -13,8 +13,19 @@
     },
 
     "content_scripts": [{
-        "css": ["src/css/style.css", "src/vendor/ChartJS/Chart.min.css"],
-        "js": ["src/vendor/Bootstrap/js/jquery.min.js", "src/vendor/ChartJS/Chart.bundle.min.js", "src/vendor/ChartJS/moment-with-locales.min.js", "src/js/utils.js", "src/js/content.js"],
+        "css": [
+            "src/css/style.css",
+            "src/vendor/ChartJS/Chart.min.css"
+        ],
+        "js": [
+            "src/vendor/Bootstrap/js/jquery.min.js",
+            "src/vendor/ChartJS/Chart.bundle.min.js",
+            "src/vendor/ChartJS/plugins/hammer.js",
+            "src/vendor/ChartJS/plugins/chartjs-plugin-zoom.js",
+            "src/vendor/ChartJS/moment-with-locales.min.js",
+            "src/js/utils.js",
+            "src/js/content.js"
+        ],
         "matches": [
             "https://codeforces.com/profile/*",
             "http://codeforces.com/profile/*",
