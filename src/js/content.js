@@ -1,3 +1,8 @@
+/**
+ * This js file replaces the default rating chart in codeforces with custom chart.
+ * 
+ */
+
 $('#placeholder').parent().css("height", "450px");
 $('#placeholder').html('<div style="width:100%;"><canvas id="canvas"></canvas></div>');
 
@@ -7,8 +12,8 @@ var config = {
         labels: [],
         datasets: [{
             label: '',
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
             data: [],
             fill: false,
         }]
