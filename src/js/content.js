@@ -13,6 +13,7 @@ var config = {
         datasets: [{
             label: '',
             lineTension: 0,
+            pointRadius: 4,
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: [],
@@ -49,7 +50,7 @@ var config = {
                     }
                 },
                 gridLines: {
-                    display: false
+                    display: true
                 },
             }],
             yAxes: [{
@@ -88,11 +89,6 @@ var config = {
         
                     // Minimal pan distance required before actually applying pan
                     threshold: 10,
-        
-                    // Function called while the user is panning
-                    onPan: function({chart}) { console.log(`I'm panning!!!`); },
-                    // Function called once panning is completed
-                    onPanComplete: function({chart}) { console.log(`I was panned!!!`); }
                 },
         
                 // Container for zoom options
@@ -140,11 +136,6 @@ var config = {
         
                     // On category scale, minimal zoom level before actually applying zoom
                     sensitivity: 3,
-        
-                    // Function called while the user is zooming
-                    onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
-                    // Function called once zooming is completed
-                    onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); }
                 }
             }
         }
