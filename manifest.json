@@ -22,6 +22,7 @@
             "src/vendor/ChartJS/Chart.bundle.min.js",
             "src/vendor/ChartJS/plugins/hammer.js",
             "src/vendor/ChartJS/plugins/chartjs-plugin-zoom.js",
+            "src/vendor/ChartJS/plugins/chartjs-plugin-annotation.min.js",
             "src/vendor/ChartJS/moment-with-locales.min.js",
             "src/js/utils.js",
             "src/js/content.js"
