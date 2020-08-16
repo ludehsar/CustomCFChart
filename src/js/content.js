@@ -14,8 +14,8 @@ var config = {
             label: '',
             lineTension: 0,
             pointRadius: 4,
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(153, 102, 255)',
+            borderColor: 'rgb(153, 102, 255)',
             data: [],
             fill: false,
         }]
@@ -56,6 +56,391 @@ var config = {
             yAxes: [{
                 display: true
             }]
+        },
+        annotation: {
+            // Defines when the annotations are drawn.
+			// This allows positioning of the annotation relative to the other
+			// elements of the graph.
+			//
+			// Should be one of: afterDraw, afterDatasetsDraw, beforeDatasetsDraw
+			// See http://www.chartjs.org/docs/#advanced-usage-creating-plugins
+			drawTime: 'afterDatasetsDraw', // (default)
+
+			// Mouse events to enable on each annotation.
+			// Should be an array of one or more browser-supported mouse events
+			// See https://developer.mozilla.org/en-US/docs/Web/Events
+			events: ['click'],
+
+			// Double-click speed in ms used to distinguish single-clicks from
+			// double-clicks whenever you need to capture both. When listening for
+			// both click and dblclick, click events will be delayed by this
+			// amount.
+            dblClickSpeed: 350, // ms (default)
+            
+            // Array of annotation configuration objects
+            // See below for detailed descriptions of the annotation options
+            annotations: [
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-1',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 1199,
+                
+                    // Bottom edge of the box
+                    yMin:  0,
+                
+                    // Stroke color
+                    borderColor: 'rgb(204, 204, 204)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(204, 204, 204, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-2',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 1399,
+                
+                    // Bottom edge of the box
+                    yMin:  1200,
+                
+                    // Stroke color
+                    borderColor: 'rgb(119, 255, 119)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(119, 255, 119, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-3',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 1599,
+                
+                    // Bottom edge of the box
+                    yMin:  1400,
+                
+                    // Stroke color
+                    borderColor: 'rgb(119, 221, 187)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(119, 221, 187, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-4',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 1899,
+                
+                    // Bottom edge of the box
+                    yMin:  1600,
+                
+                    // Stroke color
+                    borderColor: 'rgb(170, 170, 255)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(170, 170, 255, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-5',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 2099,
+                
+                    // Bottom edge of the box
+                    yMin:  1900,
+                
+                    // Stroke color
+                    borderColor: 'rgb(255, 136, 255)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(255, 136, 255, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-6',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 2299,
+                
+                    // Bottom edge of the box
+                    yMin:  2100,
+                
+                    // Stroke color
+                    borderColor: 'rgb(255, 204, 136)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(255, 204, 136, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-7',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 2399,
+                
+                    // Bottom edge of the box
+                    yMin:  2300,
+                
+                    // Stroke color
+                    borderColor: 'rgb(255, 187, 85)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(255, 187, 85, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-8',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 2599,
+                
+                    // Bottom edge of the box
+                    yMin:  2400,
+                
+                    // Stroke color
+                    borderColor: 'rgb(255, 119, 119)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(255, 119, 119, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-9',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 2999,
+                
+                    // Bottom edge of the box
+                    yMin:  2600,
+                
+                    // Stroke color
+                    borderColor: 'rgb(255, 51, 51)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(255, 51, 51, 0.5)',
+                },
+                {
+                    type: 'box',
+                
+                    // optional drawTime to control layering, overrides global drawTime setting
+                    drawTime: 'beforeDatasetsDraw',
+                
+                    // optional annotation ID (must be unique)
+                    id: 'a-box-10',
+                
+                    // ID of the X scale to bind onto
+                    xScaleID: 'x-axis-0',
+                
+                    // ID of the Y scale to bind onto
+                    yScaleID: 'y-axis-0',
+                
+                    // Left edge of the box. in units along the x axis
+                    xMin: "1000-01-01T00:00:00Z",
+                    
+                    // Right edge of the box
+                    xMax: "5000-01-01T09:00:00Z",
+                
+                    // Top edge of the box in units along the y axis
+                    yMax: 5000,
+                
+                    // Bottom edge of the box
+                    yMin:  3000,
+                
+                    // Stroke color
+                    borderColor: 'rgb(170, 0, 0)',
+                
+                    // Stroke width
+                    borderWidth: 1,
+                
+                    // Fill color
+                    backgroundColor: 'rgba(170, 0, 0, 0.5)',
+                },
+            ]
         },
         plugins: {
             zoom: {
