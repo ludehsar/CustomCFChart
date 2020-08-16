@@ -6,6 +6,9 @@
 $('#placeholder').parent().css("height", "450px");
 $('#placeholder').html('<div style="width:100%;"><canvas id="canvas"></canvas></div>');
 
+// CSP: disable automatic style injection
+Chart.platform.disableCSSInjection = true;
+
 var config = {
     type: 'line',
     data: {
@@ -36,17 +39,17 @@ var config = {
                 type: 'time',
                 distribution: 'linear',
                 time: {
-                    unitStepSize: 5,
+                    stepSize: 5,
                     displayFormats: {
                         'millisecond': 'MMM DD',
                         'second': 'MMM DD',
                         'minute': 'MMM DD',
                         'hour': 'MMM DD',
                         'day': 'MMM DD',
-                        'week': 'MMM DD',
+                        'week': 'MMM YYYY',
                         'month': 'MMM YYYY',
-                        'quarter': 'MMM YYYY',
-                        'year': 'MMM YYYY',
+                        'quarter': 'YYYY',
+                        'year': 'YYYY',
                     }
                 },
                 gridLines: {
@@ -527,7 +530,7 @@ var config = {
     },
 };
 
-window.onload = function() {
+window.addEventListener('load', function() {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.ContestRatingChart = new Chart(ctx, config);
-};
+});
