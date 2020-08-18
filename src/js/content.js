@@ -25,9 +25,97 @@ var config = {
     },
     options: {
         responsive: true,
+        events: ['click', 'touchstart', 'touchmove'],
         tooltips: {
+            // Disable the on-canvas tooltip
+            enabled: false,
             mode: 'index',
-            intersect: true
+            position: 'nearest',
+            intersect: true,
+            callbacks: {
+                title: function(tooltipItems, data) {
+                    return contestRatingResults[tooltipItems[0].index].contestName;
+                },
+                labelColor: function(tooltipItem, chart) {
+                    return {
+                        borderColor: 'rgb(255, 255, 255)',
+                        backgroundColor: 'rgb(153, 102, 255)'
+                    };
+                },
+                labelTextColor: function(tooltipItem, chart) {
+                    return '#543453';
+                }
+            },
+            custom: function(tooltip) {
+                // Tooltip Element
+                var tooltipEl = document.getElementById('chartjs-tooltip');
+    
+                if (!tooltipEl) {
+                    tooltipEl = document.createElement('div');
+                    tooltipEl.id = 'chartjs-tooltip';
+                    tooltipEl.innerHTML = '<table></table>';
+                    this._chart.canvas.parentNode.appendChild(tooltipEl);
+                }
+    
+                // Hide if no tooltip
+                if (tooltip.opacity === 0) {
+                    tooltipEl.style.opacity = 0;
+                    tooltipEl.style.display = 'none';
+                    return;
+                }
+                tooltipEl.style.display = 'block';
+    
+                // Set caret Position
+                tooltipEl.classList.remove('above', 'below', 'no-transform');
+                if (tooltip.yAlign) {
+                    tooltipEl.classList.add(tooltip.yAlign);
+                } else {
+                    tooltipEl.classList.add('no-transform');
+                }
+    
+                function getBody(bodyItem) {
+                    return bodyItem.lines;
+                }
+    
+                // Set Text
+                if (tooltip.body) {
+                    var titleLines = tooltip.title || [];
+                    var bodyLines = tooltip.body.map(getBody);
+    
+                    var innerHtml = '<thead>';
+    
+                    titleLines.forEach(function(title, i) {
+                        innerHtml += '<tr><th><a class="chartjs-tooltip-link" href="https://codeforces.com/contest/' + contestRatingResults[tooltip.dataPoints[i].index].contestId + '" target="_blank"><strong>' + title + '</strong></a></th></tr>';
+                    });
+                    innerHtml += '</thead><tbody>';
+
+                    bodyLines.forEach(function(body, i) {
+                        var colors = tooltip.labelColors[i];
+                        var style = 'background:' + colors.backgroundColor;
+                        style += '; border-color:' + colors.borderColor;
+                        style += '; border-width: 2px';
+                        var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+                        innerHtml += '<tr><td>' + span + 'Rating: ' + contestRatingResults[tooltip.dataPoints[i].index].newRating + ' (' + ((contestRatingResults[tooltip.dataPoints[i].index].newRating - contestRatingResults[tooltip.dataPoints[i].index].oldRating) >= 0 ? '+' : '') + (contestRatingResults[tooltip.dataPoints[i].index].newRating - contestRatingResults[tooltip.dataPoints[i].index].oldRating) + ')</td></tr>';
+                        innerHtml += '<tr><td>' + span + 'Rank: ' + contestRatingResults[tooltip.dataPoints[i].index].rank + '</td></tr>';
+                    });
+                    innerHtml += '</tbody>';
+    
+                    var tableRoot = tooltipEl.querySelector('table');
+                    tableRoot.innerHTML = innerHtml;
+                }
+    
+                var positionY = this._chart.canvas.offsetTop;
+                var positionX = this._chart.canvas.offsetLeft;
+    
+                // Display, position, and set styles for font
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+                tooltipEl.style.fontSize = tooltip.bodyFontSize + 'px';
+                tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
+                tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+            }
         },
         hover: {
             mode: 'nearest',
