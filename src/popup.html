@@ -5,9 +5,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="vendor/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/FontAwesome/css/all.css">
+    <link rel="stylesheet" href="vendor/ChartJS/Chart.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap" rel="stylesheet">
     <title>Custom CF Chart</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <div class="header">
+        <h1 class="logo">
+            <img src="../images/logo.png" alt="Custom CF Chart Logo" class="logo-icon"> Custom CF Chart <span class="version">(1.0.0)</span>
+        </h1>
+    </div>
+    <div class="content">
+        <!-- Form -->
+    
+        <div style="width:100%;"><canvas id="canvas"></canvas></div>
+    </div>
+    <div class="icons">
+        <div class="flex-container">
+            <div class="flex">
+                <a href="https://github.com/ludehsar/CustomCFChart" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://www.facebook.com/rashedul.alam.anik.2/" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://www.linkedin.com/in/ludehsar/" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="vendor/Bootstrap/js/jquery.min.js"></script>
+    <script src="vendor/Bootstrap/js/popper.min.js"></script>
+    <script src="vendor/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/ChartJS/Chart.bundle.min.js"></script>
+    <script src="vendor/ChartJS/plugins/hammer.js"></script>
+    <script src="vendor/ChartJS/plugins/chartjs-plugin-zoom.js"></script>
+    <script src="vendor/ChartJS/plugins/chartjs-plugin-annotation.min.js"></script>
+    <script src="vendor/ChartJS/moment-with-locales.min.js"></script>
+    <script src="js/popup.js"></script>
 </body>
 </html>

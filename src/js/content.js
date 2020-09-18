@@ -85,7 +85,7 @@ var config = {
                     var innerHtml = '<thead>';
     
                     titleLines.forEach(function(title, i) {
-                        innerHtml += '<tr><th><a class="chartjs-tooltip-link" href="https://codeforces.com/contest/' + contestRatingResults[tooltip.dataPoints[i].index].contestId + '" target="_blank"><strong>' + title + '</strong></a></th></tr>';
+                        innerHtml += '<tr><th><a class="chartjs-tooltip-link" href="https://codeforces.com/contest/' + contestRatingResults[tooltip.dataPoints[i].index].contestId + '/standings" target="_blank"><strong>' + title + '</strong></a></th></tr>';
                     });
                     innerHtml += '</thead><tbody>';
 
