@@ -1,19 +1,90 @@
 // CSP: disable automatic style injection
 Chart.platform.disableCSSInjection = true;
 
+const contestRatingResults = [];
+const achievedHandles = [];
+let globallyClickedDatasetIndex = -1;
+let count = 0;
+
+function generateRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#00';
+    for (var i = 0; i < 4; i++) {
+        color += letters[Math.round(Math.random() * 99989) % 16];
+    }
+    return color;
+}
+
+function addNewForm() {
+    $('#input-form').append('<form action="#" id="handle-form-' + count +  '" data-count="' + count + '" class="form-inline"><div class="form-group mx-3 mb-2"><input type="text" name="handle" id="handle" class="form-control" placeholder="Enter a valid handle" required /></div><button type="submit" class="btn btn-primary mb-2">Add</button></form>');
+
+    $('#handle-form-' + count).submit((event) => {
+        event.preventDefault();
+        const current = event.target.attributes['data-count'].value;
+        populateChartData(event, current);
+    });
+}
+
+function populateChartData(e, current) {
+    const proposedHandle = e.target[0].value;
+    for (var i = 0; i < achievedHandles.length; ++i) {
+        if (proposedHandle == achievedHandles[i]) return;
+    }
+    $.ajax('https://codeforces.com/api/user.rating?handle=' + proposedHandle).then(function(res) {
+        if (current == count) {
+            contestRatingResults.push(res.result);
+            const currentColor = generateRandomColor();
+            const newDataset = {
+                label: proposedHandle,
+                lineTension: 0,
+                pointRadius: 4,
+                backgroundColor: currentColor,
+                borderColor: currentColor,
+                data: [],
+                fill: false,
+            };
+            ContestRatingChart.data.datasets.push(newDataset);
+            
+            achievedHandles.push(proposedHandle);
+        }
+        else {
+            contestRatingResults[current] = res.result;
+
+            ContestRatingChart.data.datasets[current].label = proposedHandle;
+            ContestRatingChart.data.datasets[current].data = [];
+
+            achievedHandles[current] = proposedHandle;
+        }
+		res.result.forEach(data => {
+            ContestRatingChart.data.datasets[current].data.push({
+                t: moment.unix(data.ratingUpdateTimeSeconds).format(),
+                y: data.newRating
+            });
+      
+			// re-render the chart
+			ContestRatingChart.update();
+        });
+        if (current == count) {
+            count++;
+            addNewForm();
+        }
+	});
+}
+
+function resetData() {
+    while (contestRatingResults.length > 0) contestRatingResults.pop();
+    while (achievedHandles.length > 0) achievedHandles.pop();
+    count = 0;
+    ContestRatingChart.data.datasets = [];
+    ContestRatingChart.update();
+    $('#input-form').empty();
+    addNewForm();
+}
+
 var config = {
     type: 'line',
     data: {
-        labels: [],
-        datasets: [{
-            label: '',
-            lineTension: 0,
-            pointRadius: 4,
-            backgroundColor: 'rgb(153, 102, 255)',
-            borderColor: 'rgb(153, 102, 255)',
-            data: [],
-            fill: false,
-        }]
+        datasets: []
     },
     options: {
         responsive: true,
@@ -26,15 +97,18 @@ var config = {
             intersect: true,
             callbacks: {
                 title: function(tooltipItems, data) {
-                    return contestRatingResults[tooltipItems[0].index].contestName;
+                    for (var i = 0; i < tooltipItems.length; ++i) {
+                        if (tooltipItems[i].datasetIndex == globallyClickedDatasetIndex)
+                            return contestRatingResults[globallyClickedDatasetIndex][tooltipItems[i].index].contestName;
+                    }
                 },
-                labelColor: function(tooltipItem, chart) {
+                labelColor: function(tooltipItems, chart) {
                     return {
                         borderColor: 'rgb(255, 255, 255)',
                         backgroundColor: 'rgb(153, 102, 255)'
                     };
                 },
-                labelTextColor: function(tooltipItem, chart) {
+                labelTextColor: function(tooltipItems, chart) {
                     return '#543453';
                 }
             },
@@ -71,25 +145,31 @@ var config = {
     
                 // Set Text
                 if (tooltip.body) {
-                    var titleLines = tooltip.title || [];
                     var bodyLines = tooltip.body.map(getBody);
     
                     var innerHtml = '<thead>';
-    
-                    titleLines.forEach(function(title, i) {
-                        innerHtml += '<tr><th><a class="chartjs-tooltip-link" href="https://codeforces.com/contest/' + contestRatingResults[tooltip.dataPoints[i].index].contestId + '/standings" target="_blank"><strong>' + title + '</strong></a></th></tr>';
-                    });
+
+                    var index = -1;
+
+                    for (var i = 0; i < tooltip.dataPoints.length; ++i) {
+                        if (tooltip.dataPoints[i].datasetIndex == globallyClickedDatasetIndex) {
+                            index = tooltip.dataPoints[i].index;
+                            break;
+                        }
+                    }
+                    
+
+                    innerHtml += '<tr><th><a class="chartjs-tooltip-link" href="https://codeforces.com/contest/' + contestRatingResults[globallyClickedDatasetIndex][index].contestId + '/standings" target="_blank"><strong>' + tooltip.title[0] + '</strong></a></th></tr>';
                     innerHtml += '</thead><tbody>';
 
-                    bodyLines.forEach(function(body, i) {
-                        var colors = tooltip.labelColors[i];
-                        var style = 'background:' + colors.backgroundColor;
-                        style += '; border-color:' + colors.borderColor;
-                        style += '; border-width: 2px';
-                        var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-                        innerHtml += '<tr><td>' + span + 'Rating: ' + contestRatingResults[tooltip.dataPoints[i].index].newRating + ' (' + ((contestRatingResults[tooltip.dataPoints[i].index].newRating - contestRatingResults[tooltip.dataPoints[i].index].oldRating) >= 0 ? '+' : '') + (contestRatingResults[tooltip.dataPoints[i].index].newRating - contestRatingResults[tooltip.dataPoints[i].index].oldRating) + ')</td></tr>';
-                        innerHtml += '<tr><td>' + span + 'Rank: ' + contestRatingResults[tooltip.dataPoints[i].index].rank + '</td></tr>';
-                    });
+                    var colors = tooltip.labelColors[0];
+                    var style = 'background:' + colors.backgroundColor;
+                    style += '; border-color:' + colors.borderColor;
+                    style += '; border-width: 2px';
+                    var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+                    innerHtml += '<tr><td>' + span + 'Rating: ' + contestRatingResults[globallyClickedDatasetIndex][index].newRating + ' (' + ((contestRatingResults[globallyClickedDatasetIndex][index].newRating - contestRatingResults[globallyClickedDatasetIndex][index].oldRating) >= 0 ? '+' : '') + (contestRatingResults[globallyClickedDatasetIndex][index].newRating - contestRatingResults[globallyClickedDatasetIndex][index].oldRating) + ')</td></tr>';
+                    innerHtml += '<tr><td>' + span + 'Rank: ' + contestRatingResults[globallyClickedDatasetIndex][index].rank + '</td></tr>';
+
                     innerHtml += '</tbody>';
     
                     var tableRoot = tooltipEl.querySelector('table');
@@ -112,6 +192,13 @@ var config = {
         hover: {
             mode: 'nearest',
             intersect: true
+        },
+        onClick: function (e) {
+            const clicked = this.getElementAtEvent(e)[0];
+
+            if (clicked) {
+                globallyClickedDatasetIndex = clicked._datasetIndex;
+            }
         },
         scales: {
             xAxes: [{
@@ -613,4 +700,9 @@ var config = {
 window.addEventListener('load', function() {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.ContestRatingChart = new Chart(ctx, config);
+    $('#reset-btn').click(() => {
+        resetData();
+    });
+
+    addNewForm();
 });
